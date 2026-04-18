@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Rotator</title>
+    <style>
+        /* Modern reset to ensure full-screen coverage */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: #000; /* Prevents bright white flashes between loads */
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="display-frame" src=""></iframe>
+
+    <script>
+        (function() {
+            const urls = [
+                "https://displayboard.advancedscoreboard.com/?c=1b965a5f-18d7-11f1-a023-005056bb8667&d=a37e4191-18d7-11f1-a023-005056bb8667&k=Abo7bskzKzFiMq7vZO4PaYeVCBE7PSbwUkPqseFg&v=1&mb=1&da=",
+                "https://displayboard.advancedscoreboard.com/?c=1b965a5f-18d7-11f1-a023-005056bb8667&d=a37e4191-18d7-11f1-a023-005056bb8667&k=r6YxvNDiyeHXuHEkF3FdivlRhK3o9X8CCEblIMEP&v=1&mb=1&da="
+            ];
+            
+            const intervalSeconds = 20;
+            let index = 0;
+            const frame = document.getElementById('display-frame');
+
+            function rotate() {
+                if (frame) {
+                    frame.src = urls[index];
+                    index = (index + 1) % urls.length;
+                }
+                setTimeout(rotate, intervalSeconds * 1000);
+            }
+
+            // Start the rotation once the DOM is ready
+            window.addEventListener('DOMContentLoaded', rotate);
+        })();
+    </script>
+</body>
+</html>
